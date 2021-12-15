@@ -52,7 +52,11 @@ fun main() {
         return oxgen.toInt(2) * co2.toInt(2)
     }
 
+    val testInput = readInput("Day03_test")
     val input = readInput("Day03")
+    check(part1(testInput) == 198)
+    check(part2(testInput) == 230)
+
     println(part1(input))
     println(part2(input))
 }

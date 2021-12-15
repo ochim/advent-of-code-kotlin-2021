@@ -1,20 +1,19 @@
 fun main() {
     fun part1(input: List<String>): Int {
-        var H = 0
-        var D = 0
+        var horizontal = 0
+        var depth = 0
 
-        input.forEach {
-            val list = it.split(" ")
-            val way = list[0]
-            val n = list[1].toInt()
-            when (way) {
-                "forward" -> H += n
-                "down" -> D += n
-                "up" -> D -= n
-                else -> {}
+        val operations = input.map { it.split(' ') }
+        for ((direction, amountString) in operations) {
+            val amount = amountString.toInt()
+            when (direction) {
+                "forward" -> horizontal += amount
+                "down" -> depth += amount
+                "up" -> depth -= amount
             }
         }
-        return H * D
+
+        return horizontal * depth
     }
 
     fun part2(input: List<String>): Int {
@@ -22,22 +21,25 @@ fun main() {
         var depth = 0
         var aim = 0
 
-        input.forEach {
-            val list = it.split(" ")
-            val way = list[0]
-            val n = list[1].toInt()
-            when (way) {
+        val operations = input.map { it.split(' ') }
+        for ((direction, amountString) in operations) {
+            val amount = amountString.toInt()
+            when (direction) {
                 "forward" -> {
-                    horizontal += n
-                    depth += n * aim
+                    horizontal += amount
+                    depth += amount * aim
                 }
-                "down" -> aim += n
-                "up" -> aim -= n
-                else -> {}
+                "down" -> aim += amount
+                "up" -> aim -= amount
             }
         }
+
         return horizontal * depth
     }
+
+    val testInput = readInput("Day02_test")
+    check(part1(testInput) == 150)
+    check(part2(testInput) == 900)
 
     val input = readInput("Day02")
     println(part1(input))
