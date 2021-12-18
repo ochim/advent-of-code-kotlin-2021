@@ -16,12 +16,26 @@ fun main() {
                 add(cost)
             }
         }
-
         return totalCosts.minOrNull() ?: 0
     }
 
     fun part2(input: List<String>): Int {
-        return input.size
+        val positions = input.first().split(",").map { it.toInt() }
+        require(positions.isNotEmpty())
+        val min = positions.minOrNull()!!
+        val max = positions.maxOrNull()!!
+
+        val totalCosts = buildList<Int> {
+            for (i in min..max) {
+                var cost = 0
+                positions.forEach {
+                    val diff = abs(i - it)
+                    cost += diff * (diff + 1) / 2
+                }
+                add(cost)
+            }
+        }
+        return totalCosts.minOrNull() ?: 0
     }
 
     val testInput = readInput("Day07_test")
@@ -31,6 +45,6 @@ fun main() {
     println("P1 Result: " + part1(input))
 
     println("P2 Test: " + part2(testInput))
-    check(part2(testInput) == 1)
+    check(part2(testInput) == 168)
     println("P2 Result: " + part2(input))
 }
